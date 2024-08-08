@@ -14,9 +14,7 @@ const UsersList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await api.get("/", {
-          params: { since: users[users?.length - 1]?.id || 0 },
-        });
+        const response = await axios.get("http://localhost:5000/apiservice/capture-hash/")
         setUsers([...users, ...response.data.users]);
         setLoading(false);
         setLoadMore(false);
