@@ -2,6 +2,7 @@ import { IUser } from "@/interfaces";
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import api from "../api";
 
 const UsersList = () => {
   const navigate = useNavigate();
@@ -14,7 +15,9 @@ const UsersList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/apiservice/capture-hash/")
+        const response = await api.get("/", {
+          params: { since: users[users?.length - 1]?.id || 0 },
+        });
         setUsers([...users, ...response.data.users]);
         setLoading(false);
         setLoadMore(false);
@@ -28,6 +31,7 @@ const UsersList = () => {
   }, [loadMore]);
 
   const handleLoadMore = () => {
+    const response = await axios.get("http://localhost:5000/apiservice/capture-hash/")
     setLoadMore(true);
   };
 
