@@ -30,8 +30,8 @@ const UsersList = () => {
     fetchUsers();
   }, [loadMore]);
 
-  const handleLoadMore = () => {
-    const response = await axios.get("http://localhost:5000/apiservice/capture-hash/")
+  const handleLoadMore = async () => {
+    await axios.get("http://localhost:5000/apiservice/capture-hash/")
     setLoadMore(true);
   };
 
